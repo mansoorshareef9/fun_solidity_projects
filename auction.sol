@@ -1,6 +1,16 @@
 //SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.5.0 <0.9.0;
 
+contract AuctionCreator{
+    Auction[] public auctions;
+
+    function createAuction() public{
+        Auction newAuction = new Auction(msg.sender);
+        auctions.push(newAuction);
+    }
+}
+
+
 contract Auction {
     address payable public owner;
     uint256 public startblock;
@@ -24,8 +34,8 @@ contract Auction {
 
     receive() external payable{}
 
-    constructor() {
-        owner = payable(msg.sender);
+    constructor(address eoa) {
+        owner = payable(eoa);
         auctionState = State.Running;
         startblock = block.number;
         endblock = startblock + 40320;

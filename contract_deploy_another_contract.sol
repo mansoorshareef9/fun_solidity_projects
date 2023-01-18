@@ -3,8 +3,8 @@ pragma solidity >=0.5.0 <0.9.0;
 
 contract A{
     address public owner;
-    constructor(){
-        owner = msg.sender;
+    constructor(address eoa){
+        owner = eoa;
     }
 }
 
@@ -17,7 +17,7 @@ contract Creator{
     }
 
     function deployA() public{
-        A new_A_address = new A();
+        A new_A_address = new A(msg.sender);
         deployedA.push(new_A_address); //add newly created contracts to array
     }
 }
